@@ -8,16 +8,19 @@ Endpoints: GET /v1/models, POST /v1/chat/completions (stream + non-stream).
 Smoke: curl http://127.0.0.1:8750/v1/chat/completions -H 'Content-Type: application/json' \
        -d '{"model":"intern","messages":[{"role":"user","content":"hi"}]}'
 """
-import os
-import json, os, sys, threading, time
+import json, sys, threading, time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 BANK = os.environ.get("INTERN_FULL", "./intern_full.jsonl")
 DISC = "https://discovery.intern-ai.org.cn"
 MODEL_MAP = {
-    "intern": "书生-S2", "gpt-4o": "书生-S2", "intern-s2": "书生-S2", "default": "书生-S2",
+    "intern": "书生-S2", "gpt-4o": "书生-S2", "intern-s2": "书生-S2", "default": "Default",
     "deep": "书生-Agents-A1", "agents-a1": "书生-Agents-A1",
     "dawn": "书生-Atria-Dawn-Preview", "atria": "书生-Atria-Dawn-Preview",
+    "kimi-k2.7-code": "Kimi-K2.7-Code", "kimi": "Kimi-K2.7-Code",
+    "deepseek-v4-flash": "DeepSeek-V4-Flash", "deepseek": "DeepSeek-V4-Flash",
+    "qwen3.7-plus": "Qwen3.7-Plus", "qwen": "Qwen3.7-Plus",
+    "qwen3.8-flash": "Qwen3.8-Flash", "qwen-flash": "Qwen3.8-Flash",
 }
 MODELS = list(MODEL_MAP.keys())
 
